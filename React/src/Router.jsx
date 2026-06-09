@@ -9,21 +9,6 @@ import DefaultLayout from "./Components/DefaultLayout";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <DefaultLayout />,
-        children: [
-            {
-                path: "/",
-                element: <Dashboard />,
-            },
-            {
-                path: "/surveys",
-                element: <Surveys />,
-            },
-        ],
-    },
-
-    {
-        path: "/",
         element: <GuestLayout />,
         children: [
             {
@@ -33,6 +18,21 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />,
+            },
+        ],
+    },
+
+    {
+        path: "/",
+        element: <DefaultLayout />,
+        children: [
+            {
+                path: "/dashboard",
+                element: <Dashboard />,
+            },
+            {
+                path: "/surveys",
+                element: <Surveys />,
             },
         ],
     },
