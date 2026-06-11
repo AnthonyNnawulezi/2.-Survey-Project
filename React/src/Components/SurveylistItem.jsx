@@ -1,31 +1,17 @@
 import { Link } from "react-router-dom";
 
-function SurveylistItem({ id, image_url, title, description }) {
+function SurveylistItem({ survey, onDeleteClick }) {
     return (
-        <li key={id}>
-            <img src={image_url} alt="title" />
-            <p>{title}</p>
-            <span>{description}</span>
-            <div></div>
-            <div>
-                <button>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="size-6"
+        <div key={survey.id} className="">
+            <img src={survey.image_url} alt="title" className="" />
+            <p>{survey.title}</p>
+            <span>{survey.description}</span>
+            <div className="flex flex-row justify-between ">
+                <a href="/survey/view" className="cursor-pointer">
+                    <button
+                        type="button"
+                        className="inline-flex items-center px-4 py-3 text-sm font-medium border rounded-lg cursor-pointer gap-x-2 bg-primary border-primary-line text-primary-foreground hover:bg-primary-hover focus:outline-hidden focus:bg-primary-hover disabled:opacity-50 disabled:pointer-events-none"
                     >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                        />
-                    </svg>
-                </button>
-                <div>
-                    <Link>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -37,11 +23,31 @@ function SurveylistItem({ id, image_url, title, description }) {
                             <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
+                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                            />
+                        </svg>
+                        <label htmlFor="edit">Edit</label>
+                    </button>
+                </a>
+
+                <div className="flex flex-row items-center gap-5">
+                    <Link>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2.0}
+                            stroke="currentColor"
+                            className="size-6"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                                 d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
                             />
                         </svg>
                     </Link>
-                    <button>
+                    <button type="button" onClick={onDeleteClick}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -59,7 +65,7 @@ function SurveylistItem({ id, image_url, title, description }) {
                     </button>
                 </div>
             </div>
-        </li>
+        </div>
     );
 }
 
