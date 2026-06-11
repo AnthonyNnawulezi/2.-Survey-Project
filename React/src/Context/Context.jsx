@@ -198,12 +198,12 @@ export function Context({ children }) {
     const [surveys, setSurveys] = useState(tmpSurveys);
 
     return (
-        <Context.Provider
+        <stateContext.Provider
             value={{ user, setUser, token, setToken, surveys, setSurveys }}
         >
             {children}
-        </Context.Provider>
+        </stateContext.Provider>
     );
 }
 
-export const useStateContext = useContext(stateContext);
+export const useStateContext = () => useContext(stateContext);
