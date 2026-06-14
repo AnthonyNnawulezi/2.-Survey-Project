@@ -33,7 +33,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-export default function DefaultLayout() {
+export default function GuestLayout() {
     return (
         <>
             <div className="min-h-full">
