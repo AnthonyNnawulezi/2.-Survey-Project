@@ -1,4 +1,6 @@
 export default function Signup() {
+    function onSubmit() {}
+
     return (
         <>
             <div className="flex flex-col justify-center min-h-full px-6 py-12 lg:px-8">
@@ -9,12 +11,30 @@ export default function Signup() {
                         className="w-auto h-10 mx-auto"
                     />
                     <h2 className="mt-10 font-bold tracking-tight text-center text-white text-2xl/9">
-                        Sign in to your account
+                        Sign up to your account
                     </h2>
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
+                    <form action={onSubmit} method="POST" className="space-y-6">
+                        <div>
+                            <label
+                                htmlFor="fullName"
+                                className="block font-medium text-gray-100 text-sm/6"
+                            >
+                                Full Name
+                            </label>
+                            <div className="mt-2">
+                                <input
+                                    id="full-name"
+                                    name="fullName"
+                                    type="text"
+                                    required
+                                    autoComplete="full-name"
+                                    className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                                />
+                            </div>
+                        </div>
                         <div>
                             <label
                                 htmlFor="email"
@@ -68,7 +88,7 @@ export default function Signup() {
                                 type="submit"
                                 className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                             >
-                                Sign in
+                                Sign up
                             </button>
                         </div>
                     </form>
