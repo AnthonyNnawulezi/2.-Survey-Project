@@ -1,13 +1,13 @@
 import axios from "axios";
 import router from "./Router";
 
-const API_BASE_URL = import.meta.env.APP_URL;
+const APP_URL = import.meta.env.VITE_APP_URL;
 const REQUEST_TIMEOUT = 10000;
 const ACCESS_TOKEN = "auth_token";
 const LOGIN_ROUTE = "/login";
 
 const apiClient = axios.create({
-    BASE_URL: `${API_BASE_URL ?? ""}/api`,
+    baseURL: `${APP_URL ?? ""}/api`,
     timeout: REQUEST_TIMEOUT,
 });
 

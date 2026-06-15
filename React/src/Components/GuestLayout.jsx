@@ -8,7 +8,8 @@ import {
     MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import apiClient from "../axios";
 
 const user = {
     name: "Tom Cook",
@@ -23,11 +24,17 @@ const navigation = [
     { name: "Calendar", href: "#", current: false },
     { name: "Reports", href: "#", current: false },
 ];
-const userNavigation = [
-    { name: "Your profile", href: "#" },
-    { name: "Settings", href: "#" },
-    { name: "Sign out", href: "#" },
-];
+
+const logout = (e) => {
+    e.preventDefault();
+    apiClient.post("/logout").then((data) => console.log(data));
+};
+
+// const userNavigation = [
+//     { name: "Your profile", href: "#" },
+//     { name: "Settings", href: "#" },
+//     { name: "Sign out", href: "#" },
+// ];
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -106,16 +113,17 @@ export default function GuestLayout() {
                                             transition
                                             className="absolute right-0 z-10 w-48 py-1 mt-2 transition origin-top-right bg-gray-800 rounded-md outline-1 -outline-offset-1 outline-white/10 data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
                                         >
-                                            {userNavigation.map((item) => (
-                                                <MenuItem key={item.name}>
-                                                    <a
-                                                        href={item.href}
-                                                        className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden"
-                                                    >
-                                                        {item.name}
-                                                    </a>
-                                                </MenuItem>
-                                            ))}
+                                            <MenuItem>
+                                                <NavLink
+                                                    onClick={(e) => {
+                                                        logout(e);
+                                                    }}
+                                                    to="#"
+                                                    className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden"
+                                                >
+                                                    Sign Out
+                                                </NavLink>
+                                            </MenuItem>
                                         </MenuItems>
                                     </Menu>
                                 </div>
@@ -193,16 +201,17 @@ export default function GuestLayout() {
                                 </button>
                             </div>
                             <div className="px-2 mt-3 space-y-1">
-                                {userNavigation.map((item) => (
-                                    <DisclosureButton
-                                        key={item.name}
-                                        as="a"
-                                        href={item.href}
+                                <DisclosureButton>
+                                    <NavLink
+                                        onClick={(e) => {
+                                            logout(e);
+                                        }}
+                                        to="#"
                                         className="block px-3 py-2 text-base font-medium text-gray-400 rounded-md hover:bg-white/5 hover:text-white"
                                     >
-                                        {item.name}
-                                    </DisclosureButton>
-                                ))}
+                                        Sign Out
+                                    </NavLink>
+                                </DisclosureButton>
                             </div>
                         </div>
                     </DisclosurePanel>
