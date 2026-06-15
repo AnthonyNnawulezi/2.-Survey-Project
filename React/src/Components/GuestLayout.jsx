@@ -25,8 +25,9 @@ const navigation = [
     { name: "Reports", href: "#", current: false },
 ];
 
-const logout = (e) => {
+const logout = async (e) => {
     e.preventDefault();
+    await apiClient.get("/sanctum/csrf-cookie"); // sets XSRF-TOKEN cookie
     apiClient.post("/logout").then((data) => console.log(data));
 };
 

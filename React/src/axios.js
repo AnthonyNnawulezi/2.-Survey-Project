@@ -7,8 +7,14 @@ const ACCESS_TOKEN = "auth_token";
 const LOGIN_ROUTE = "/login";
 
 const apiClient = axios.create({
-    baseURL: `${APP_URL ?? ""}/api`,
+    baseURL: `${APP_URL ?? ""}`,
     timeout: REQUEST_TIMEOUT,
+    withCredentials: true,
+    withXSRFToken: true,
+    headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+    },
 });
 
 //request
