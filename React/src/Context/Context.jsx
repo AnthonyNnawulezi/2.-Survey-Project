@@ -10,7 +10,7 @@ const stateContext = createContext({
 });
 
 export function Context({ children }) {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
 
     function _setToken(token) {
         if (token) {

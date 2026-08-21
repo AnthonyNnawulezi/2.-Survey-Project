@@ -35,7 +35,7 @@ apiClient.interceptors.request.use(
 );
 
 //response
-apiClient.interceptors.request.use(
+apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
         const status = error?.response?.status;

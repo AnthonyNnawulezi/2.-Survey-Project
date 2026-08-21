@@ -10,38 +10,29 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavLink, Outlet } from "react-router-dom";
 import apiClient from "../axios";
+import { useStateContext } from "../Context/Context";
 
-const user = {
-    name: "Tom Cook",
-    email: "tom@example.com",
-    imageUrl:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
 const navigation = [
     { name: "Dashboard", href: "#", current: true },
     { name: "Team", href: "#", current: false },
-    { name: "Projects", href: "#", current: false },
-    { name: "Calendar", href: "#", current: false },
-    { name: "Reports", href: "#", current: false },
 ];
-
-const logout = async (e) => {
-    e.preventDefault();
-    await apiClient.get("/sanctum/csrf-cookie"); // sets XSRF-TOKEN cookie
-    apiClient.post("/logout").then((data) => console.log(data));
-};
-
-// const userNavigation = [
-//     { name: "Your profile", href: "#" },
-//     { name: "Settings", href: "#" },
-//     { name: "Sign out", href: "#" },
-// ];
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
 export default function GuestLayout() {
+    const { user, setUser, setToken } = useStateContext();
+
+    const logout = async (e) => {
+        e.preventDefault();
+        await apiClient.get("/sanctum/csrf-cookie"); // sets XSRF-TOKEN cookie
+        apiClient.post("/logout").then(() => {
+            setUser({});
+            setToken("");
+        });
+    };
+
     return (
         <>
             <div className="min-h-full">
@@ -58,25 +49,23 @@ export default function GuestLayout() {
                                 </div>
                                 <div className="hidden md:block">
                                     <div className="flex items-baseline ml-10 space-x-4">
-                                        {navigation.map((item) => (
-                                            <a
-                                                key={item.name}
-                                                href={item.href}
-                                                aria-current={
-                                                    item.current
-                                                        ? "page"
-                                                        : undefined
-                                                }
-                                                className={classNames(
-                                                    item.current
-                                                        ? "bg-gray-950/50 text-white"
-                                                        : "text-gray-300 hover:bg-white/5 hover:text-white",
-                                                    "rounded-md px-3 py-2 text-sm font-medium",
-                                                )}
-                                            >
-                                                {item.name}
-                                            </a>
-                                        ))}
+                                        <a
+                                            key={user.name}
+                                            href={user.href}
+                                            aria-current={
+                                                user.current
+                                                    ? "page"
+                                                    : undefined
+                                            }
+                                            className={classNames(
+                                                user.current
+                                                    ? "bg-gray-950/50 text-white"
+                                                    : "text-gray-300 hover:bg-white/5 hover:text-white",
+                                                "rounded-md px-3 py-2 text-sm font-medium",
+                                            )}
+                                        >
+                                            {user.name}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -151,24 +140,20 @@ export default function GuestLayout() {
 
                     <DisclosurePanel className="md:hidden">
                         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                            {navigation.map((item) => (
-                                <DisclosureButton
-                                    key={item.name}
-                                    as="a"
-                                    href={item.href}
-                                    aria-current={
-                                        item.current ? "page" : undefined
-                                    }
-                                    className={classNames(
-                                        item.current
-                                            ? "bg-gray-950/50 text-white"
-                                            : "text-gray-300 hover:bg-white/5 hover:text-white",
-                                        "block rounded-md px-3 py-2 text-base font-medium",
-                                    )}
-                                >
-                                    {item.name}
-                                </DisclosureButton>
-                            ))}
+                            <DisclosureButton
+                                key={user.name}
+                                as="a"
+                                href={user.href}
+                                aria-current={user.current ? "page" : undefined}
+                                className={classNames(
+                                    user.current
+                                        ? "bg-gray-950/50 text-white"
+                                        : "text-gray-300 hover:bg-white/5 hover:text-white",
+                                    "block rounded-md px-3 py-2 text-base font-medium",
+                                )}
+                            >
+                                {user.name}
+                            </DisclosureButton>
                         </div>
                         <div className="pt-4 pb-3 border-t border-white/10">
                             <div className="flex items-center px-5">
