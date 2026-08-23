@@ -16,10 +16,10 @@ export default function Signup() {
         try {
             apiClient
                 .post("/signup", {
-                    fullName,
+                    name: fullName,
                     email,
                     password,
-                    confirmPassword,
+                    password_confirmation: confirmPassword,
                 })
                 .then((data) => console.log(data));
         } catch (error) {
