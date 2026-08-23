@@ -9,7 +9,10 @@ export default function Signup() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState("");
 
-    function onSubmit() {
+    function onSubmit(event) {
+        event.preventDefault();
+        setErrors("");
+
         try {
             apiClient
                 .post("/signup", {
@@ -56,6 +59,10 @@ export default function Signup() {
                                     name="fullName"
                                     type="text"
                                     required
+                                    value={fullName}
+                                    onChange={(e) =>
+                                        setFullName(e.target.value)
+                                    }
                                     autoComplete="full-name"
                                     className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
                                 />
@@ -74,6 +81,8 @@ export default function Signup() {
                                     name="email"
                                     type="email"
                                     required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     autoComplete="email"
                                     className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
                                 />
@@ -103,6 +112,10 @@ export default function Signup() {
                                     name="password"
                                     type="password"
                                     required
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                     autoComplete="current-password"
                                     className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
                                 />
@@ -123,6 +136,10 @@ export default function Signup() {
                                     name="confirm_password"
                                     type="password"
                                     required
+                                    value={confirmPassword}
+                                    onChange={(e) =>
+                                        setConfirmPassword(e.target.value)
+                                    }
                                     autoComplete="confirm_password"
                                     className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
                                 />

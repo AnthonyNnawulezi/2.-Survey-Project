@@ -61,6 +61,7 @@ apiClient.interceptors.response.use(
                 console.error("Network error, please check your connection");
                 break;
         }
+        return Promise.reject(error);
     },
 );
 
