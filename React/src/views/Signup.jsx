@@ -1,5 +1,28 @@
+import { Link } from "react-router-dom";
+import apiClient from "../axios";
+import { useState } from "react";
+
 export default function Signup() {
-    function onSubmit() {}
+    const [fullName, setFullName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [errors, setErrors] = useState("");
+
+    function onSubmit() {
+        try {
+            apiClient
+                .post("/signup", {
+                    fullName,
+                    email,
+                    password,
+                    confirmPassword,
+                })
+                .then((data) => console.log(data));
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -13,6 +36,9 @@ export default function Signup() {
                     <h2 className="mt-10 font-bold tracking-tight text-center text-white text-2xl/9">
                         Sign up to your account
                     </h2>
+                    <p className="mt-10 tracking-tight text-center text-blue-100 text-2xl/9">
+                        <Link to={"/login"}>Or login to your account</Link>
+                    </p>
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

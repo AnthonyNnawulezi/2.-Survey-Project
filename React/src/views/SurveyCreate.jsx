@@ -2,7 +2,7 @@
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
-export default function Example() {
+export default function SurveyCreate() {
     const [survey, setSurvey] = useState({
         id: null,
         image_url: null,
