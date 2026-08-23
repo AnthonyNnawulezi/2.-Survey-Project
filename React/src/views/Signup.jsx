@@ -7,11 +7,13 @@ export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [errors, setErrors] = useState("");
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     function onSubmit(event) {
         event.preventDefault();
         setErrors("");
+        setLoading(true);
 
         try {
             apiClient
@@ -21,9 +23,12 @@ export default function Signup() {
                     password,
                     password_confirmation: confirmPassword,
                 })
-                .then((data) => console.log(data));
-        } catch (error) {
-            console.log(error);
+                .then(({ data }) => console.log(data));
+        } catch ({ response }) {
+            console.log(response);
+            setErrors(response.errors);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -43,6 +48,13 @@ export default function Signup() {
                         <Link to={"/login"}>Or login to your account</Link>
                     </p>
                 </div>
+
+                {errors &&
+                    `<div style={{ background: red; }}>
+    <p>${errors.name}</p>
+    <p>${errors.email}</p>
+    <p>${errors.password}</p>
+    <div/>`}
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form onSubmit={onSubmit} className="space-y-6">
