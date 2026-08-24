@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import apiClient from "../axios";
 import { useState } from "react";
 import { useStateContext } from "../Context/Context";
@@ -10,7 +10,7 @@ export default function Signup() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
-    const { setUser, setToken } = useStateContext();
+    const { setUser, setToken, token } = useStateContext();
 
     async function onSubmit(event) {
         event.preventDefault();
@@ -36,6 +36,8 @@ export default function Signup() {
         }
     }
 
+    if (token) return <Navigate to="/dashboard" />;
+
     return (
         <>
             <div className="flex flex-col justify-center min-h-full px-6 py-12 lg:px-8">
@@ -53,13 +55,15 @@ export default function Signup() {
                     </p>
                 </div>
 
-                {Object.keys(errors) > 0 && (
+                {Object.keys(errors).length > 0 && (
                     <div className="p-3 text-white bg-red-500">
                         {errors.name && <p>{errors.name[0]}</p>}
                         {errors.email && <p>{errors.email[0]}</p>}
                         {errors.password && <p>{errors.password[0]}</p>}
                     </div>
                 )}
+
+                {loading && <p>Loading... Please wait!</p>}
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form onSubmit={onSubmit} className="space-y-6">
