@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import apiClient from "../axios";
 import { useState } from "react";
+import { useStateContext } from "../Context/Context";
 
 export default function Signup() {
     const [fullName, setFullName] = useState("");
@@ -9,24 +10,27 @@ export default function Signup() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+    const { setUser, setToken } = useStateContext();
 
-    function onSubmit(event) {
+    async function onSubmit(event) {
         event.preventDefault();
-        setErrors("");
+        setErrors({});
         setLoading(true);
 
         try {
-            apiClient
-                .post("/signup", {
-                    name: fullName,
-                    email,
-                    password,
-                    password_confirmation: confirmPassword,
-                })
-                .then(({ data }) => console.log(data));
+            const { data } = await apiClient.post("/signup", {
+                name: fullName,
+                email,
+                password,
+                password_confirmation: confirmPassword,
+            });
+
+            console.log(data);
+            setUser(data.user);
+            setToken(data.token);
         } catch ({ response }) {
             console.log(response);
-            setErrors(response.errors);
+            setErrors(response.data.errors ?? {});
         } finally {
             setLoading(false);
         }
@@ -49,12 +53,13 @@ export default function Signup() {
                     </p>
                 </div>
 
-                {errors &&
-                    `<div style={{ background: red; }}>
-    <p>${errors.name}</p>
-    <p>${errors.email}</p>
-    <p>${errors.password}</p>
-    <div/>`}
+                {Object.keys(errors) > 0 && (
+                    <div className="p-3 text-white bg-red-500">
+                        {errors.name && <p>{errors.name[0]}</p>}
+                        {errors.email && <p>{errors.email[0]}</p>}
+                        {errors.password && <p>{errors.password[0]}</p>}
+                    </div>
+                )}
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form onSubmit={onSubmit} className="space-y-6">

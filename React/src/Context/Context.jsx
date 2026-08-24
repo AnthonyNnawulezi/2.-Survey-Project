@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { redirect } from "react-router-dom";
 
 const stateContext = createContext({
     user: null,
@@ -22,6 +23,10 @@ export function Context({ children }) {
     }
 
     const [token, setToken] = useState(localStorage.getItem(_setToken));
+
+    if (token) {
+        return redirect("/dashboard");
+    }
 
     // const tmpSurveys = [
     //     {
