@@ -1,4 +1,29 @@
+import { useState } from "react";
+import apiClient from "../axios";
+import { useStateContext } from "../Context/Context";
+
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState({});
+    const { user, setUser } = useStateContext({});
+
+    async function onSubmit() {
+        apiClient
+            .post("/login", {
+                email,
+                password,
+            })
+            .then((response) =>
+                setUser({
+                    email: email,
+                    password: password,
+                }),
+            )
+            .catch((errors) => {
+                console.log(errors);
+            });
+    }
     return (
         <>
             <div className="flex flex-col justify-center min-h-full px-6 py-12 lg:px-8">
@@ -14,7 +39,11 @@ export default function Login() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
+                    <form
+                        onSubmit={onSubmit}
+                        method="POST"
+                        className="space-y-6"
+                    >
                         <div>
                             <label
                                 htmlFor="email"
@@ -27,6 +56,8 @@ export default function Login() {
                                     id="email"
                                     name="email"
                                     type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     required
                                     autoComplete="email"
                                     className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
@@ -57,6 +88,10 @@ export default function Login() {
                                     name="password"
                                     type="password"
                                     required
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                     autoComplete="current-password"
                                     className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
                                 />

@@ -11,6 +11,7 @@ export default function Signup() {
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const { setUser, setToken, token } = useStateContext();
+    // const navigate = useNavigate();
 
     async function onSubmit(event) {
         event.preventDefault();
@@ -37,6 +38,7 @@ export default function Signup() {
     }
 
     if (token) return <Navigate to="/dashboard" />;
+    // if (token) navigate("/dashboard", { replace: true });
 
     return (
         <>

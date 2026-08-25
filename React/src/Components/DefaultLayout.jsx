@@ -12,13 +12,6 @@ import { NavLink, Outlet } from "react-router-dom";
 import apiClient from "../axios";
 import { useState } from "react";
 
-// const user = {
-//     name: "Tom Cook",
-//     email: "tom@example.com",
-//     imageUrl:
-//         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-// };
-
 const navigation = [
     { name: "Dashboard", to: "/dashboard" },
     { name: "Surveys", to: "/surveys" },
@@ -30,17 +23,10 @@ function classNames(...classes) {
 
 const logout = (e) => {
     e.preventDefault();
-    apiClient.post("/logout").then((data) => console.log(data));
+    apiClient.post("/logout").then((data) => {});
 };
 
 export default function DefaultLayout() {
-    const [user] = useState({
-        name: "",
-        email: "",
-        password: "",
-        confirm_password: "",
-    });
-
     return (
         <>
             <div className="min-h-full">
