@@ -16,7 +16,7 @@ export default function Login() {
             const { data } = await apiClient.post("/login", {
                 email,
                 password,
-                remember: true,
+                remember_token: true,
             });
 
             setUser({
