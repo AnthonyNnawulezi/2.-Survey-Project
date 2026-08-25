@@ -23,10 +23,17 @@ function classNames(...classes) {
 
 const logout = (e) => {
     e.preventDefault();
-    apiClient.post("/logout").then((data) => {});
+    apiClient.post("/logout").then((data) => console.log(data));
 };
 
 export default function DefaultLayout() {
+    const [user] = useState({
+        name: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+    });
+
     return (
         <>
             <div className="min-h-full">

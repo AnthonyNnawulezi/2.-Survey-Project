@@ -31,8 +31,8 @@ class AuthController extends Controller
         }
 
         $request->tokens()->delete();
-
         $token = $credentials->createToken('auth_token')->plainTextToken;
+
         return response()->json([
             'success' => true,
             'user' => $credentials,

@@ -1,28 +1,33 @@
 import { useState } from "react";
 import apiClient from "../axios";
 import { useStateContext } from "../Context/Context";
+import { Navigate } from "react-router-dom";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
-    const { user, setUser } = useStateContext({});
+    const { setUser } = useStateContext({});
 
-    async function onSubmit() {
-        apiClient
-            .post("/login", {
+    async function onSubmit(e) {
+        e.preventDefault();
+
+        try {
+            const { data } = await apiClient.post("/login", {
                 email,
                 password,
-            })
-            .then((response) =>
-                setUser({
-                    email: email,
-                    password: password,
-                }),
-            )
-            .catch((errors) => {
-                console.log(errors);
+                remember: true,
             });
+
+            setUser({
+                email: email,
+                password: password,
+            });
+
+            return <Navigate to={"/dashboard"} replace />;
+        } catch (errors) {
+            console.log(errors);
+        }
     }
     return (
         <>
@@ -39,11 +44,7 @@ export default function Login() {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form
-                        onSubmit={onSubmit}
-                        method="POST"
-                        className="space-y-6"
-                    >
+                    <form onSubmit={onSubmit} className="space-y-6">
                         <div>
                             <label
                                 htmlFor="email"
