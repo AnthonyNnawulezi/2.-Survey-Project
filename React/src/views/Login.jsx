@@ -7,7 +7,7 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
-    const { setUser, token } = useStateContext({});
+    const { setUser, token, setToken } = useStateContext({});
 
     async function onSubmit(e) {
         e.preventDefault();
@@ -19,7 +19,8 @@ export default function Login() {
                 remember_token: true,
             });
 
-            setUser(data.user);
+            setUser(data);
+            setToken(data.token);
         } catch (errors) {
             console.log(errors);
         }
