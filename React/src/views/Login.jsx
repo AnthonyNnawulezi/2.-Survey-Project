@@ -23,6 +23,7 @@ export default function Login() {
             setToken(data.token);
         } catch (errors) {
             console.log(errors);
+            setErrors(errors.response.data.errors);
         }
     }
 
@@ -43,6 +44,13 @@ export default function Login() {
                         Log in to your account
                     </h2>
                 </div>
+
+                {Object.keys(errors).length > 0 && (
+                    <div className="bg-red-500 font-bold">
+                        {errors.password && <p>{errors.password[0]}</p>}
+                        {errors.email && <p>{errors.email[0]}</p>}
+                    </div>
+                )}
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form onSubmit={onSubmit} className="space-y-6">

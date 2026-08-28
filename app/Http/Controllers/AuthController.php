@@ -27,7 +27,9 @@ class AuthController extends Controller
         $remember = $request->remember_token;
 
         if (!Auth::attempt($credentials, $remember)) {
-            return response()->json("Invalid credentials, try again");
+            return response()->json([
+                'message' => 'Invalid credentials, try again',
+            ], 401);
         }
 
         $user = Auth::user();
