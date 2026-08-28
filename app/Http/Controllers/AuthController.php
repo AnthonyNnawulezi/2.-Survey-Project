@@ -30,12 +30,13 @@ class AuthController extends Controller
             return response()->json("Invalid credentials, try again");
         }
 
-        $request->tokens()->delete();
-        $token = $credentials->createToken('auth_token')->plainTextToken;
+        $user = Auth::user();
+        $user->tokens()->delete();
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'success' => true,
-            'user' => $credentials,
+            'user' => $user,
             'token' => $token,
         ]);
     }

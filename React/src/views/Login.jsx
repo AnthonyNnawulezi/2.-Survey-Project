@@ -7,7 +7,7 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
-    const { setUser } = useStateContext({});
+    const { setUser, token } = useStateContext({});
 
     async function onSubmit(e) {
         e.preventDefault();
@@ -23,12 +23,15 @@ export default function Login() {
                 email: email,
                 password: password,
             });
-
-            return <Navigate to={"/dashboard"} replace />;
         } catch (errors) {
             console.log(errors);
         }
     }
+
+    if (token) {
+        return <Navigate to="/dashboard" replace />;
+    }
+
     return (
         <>
             <div className="flex flex-col justify-center min-h-full px-6 py-12 lg:px-8">
