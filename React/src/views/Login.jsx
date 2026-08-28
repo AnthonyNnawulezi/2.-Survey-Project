@@ -19,10 +19,7 @@ export default function Login() {
                 remember_token: true,
             });
 
-            setUser({
-                email: email,
-                password: password,
-            });
+            setUser(data.user);
         } catch (errors) {
             console.log(errors);
         }
