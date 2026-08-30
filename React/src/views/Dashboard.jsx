@@ -5,9 +5,6 @@ import { useStateContext } from "../Context/Context";
 function Dashboard({ children, buttons }) {
     const { token } = useStateContext();
 
-    // if (!token) return navigate("/login", { replace: true });
-    if (!token) return <Navigate to={"/login", { replace: true }} />;
-
     return (
         <PageComponent
             title="Dashboard"

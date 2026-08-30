@@ -8,7 +8,7 @@ import {
     MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import apiClient from "../axios";
 import { useState } from "react";
 import { useStateContext } from "../Context/Context";
@@ -23,6 +23,8 @@ function classNames(...classes) {
 }
 
 export default function DefaultLayout() {
+    const { token, setUser, setToken } = useStateContext();
+
     const [user] = useState({
         name: "",
         email: "",
@@ -30,7 +32,6 @@ export default function DefaultLayout() {
         confirm_password: "",
     });
 
-    const { setUser, setToken } = useStateContext();
     const navigate = useNavigate();
 
     const logout = (e) => {
@@ -42,6 +43,8 @@ export default function DefaultLayout() {
             navigate("/login", { replace: true });
         });
     };
+
+    if (!token) return <Navigate to="/login" replace />;
 
     return (
         <>
