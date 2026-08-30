@@ -21,9 +21,9 @@ export default function Login() {
 
             setUser(data);
             setToken(data.token);
-        } catch (errors) {
-            console.log(errors);
-            setErrors(errors.response.data.errors);
+        } catch (error) {
+            console.log(error);
+            setErrors(error.response.data.errors);
         }
     }
 

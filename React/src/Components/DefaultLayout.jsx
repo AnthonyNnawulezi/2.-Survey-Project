@@ -8,9 +8,10 @@ import {
     MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import apiClient from "../axios";
 import { useState } from "react";
+import { useStateContext } from "../Context/Context";
 
 const navigation = [
     { name: "Dashboard", to: "/dashboard" },
@@ -21,11 +22,6 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-const logout = (e) => {
-    e.preventDefault();
-    apiClient.post("/logout").then((data) => console.log(data));
-};
-
 export default function DefaultLayout() {
     const [user] = useState({
         name: "",
@@ -33,6 +29,19 @@ export default function DefaultLayout() {
         password: "",
         confirm_password: "",
     });
+
+    const { setUser, setToken } = useStateContext();
+    const navigate = useNavigate();
+
+    const logout = (e) => {
+        e.preventDefault();
+
+        apiClient.post("/logout").then(() => {
+            setUser("");
+            setToken(null);
+            navigate("/login", { replace: true });
+        });
+    };
 
     return (
         <>
