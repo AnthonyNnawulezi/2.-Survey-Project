@@ -2,16 +2,22 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Survey;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UpdateSurveyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize(Request $request, Survey $survey): bool
     {
+        $user = $request->user()->id;
+        if ($user !== $survey->id) {
+            return false;
+        }
         return true;
     }
 

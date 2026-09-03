@@ -15,6 +15,13 @@ class StoreSurveyRequest extends FormRequest
         return true;
     }
 
+    // protected function prepareForvalidation()
+    // {
+    //     $this->merge([
+    //         'id' => $this->id
+    //     ]);
+    // }
+
     /**
      * Get the validation rules that apply to the request.
      *
