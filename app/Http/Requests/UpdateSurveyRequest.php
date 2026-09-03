@@ -12,7 +12,7 @@ class UpdateSurveyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,13 @@ class UpdateSurveyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'exists:user,id',
+            'image' => 'required|string',
+            'title' => 'required|string',
+            'slug' => 'required|string',
+            'status' => 'required|enum:surveys,slug',
+            'description' => 'required|string',
+            'expire_at' => 'required|date:after,today',
         ];
     }
 }
