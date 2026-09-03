@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('image');
+            $table->text('title');
+            $table->text('slug');
+            $table->string('status');
+            $table->longText('description');
             $table->timestamps();
+            $table->timestamp('expire_at');
         });
     }
 
