@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
 use App\Models\Survey;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class SurveyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $request->user()->id;
+        $surveys = Survey::query()->where('survey_id', $user)->orderBy('created_at')->paginate(10);
+        return new Collection($surveys);
     }
 
     /**
