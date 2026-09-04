@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
 use App\Models\Survey;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
+
+use function Pest\Laravel\delete;
 
 class SurveyController extends Controller
 {
@@ -25,7 +29,28 @@ class SurveyController extends Controller
      */
     public function store(StoreSurveyRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        if (isset($data['image'])) {
+            $extension = $request->file('image')->extension();
+            $type = ['png', 'jpeg', 'jpg', 'gif'];
+
+            if (!in_array($extension, $type)) {
+                throw new Exception("Invalid image type");
+            }
+
+            $relativePath = $data['image'];
+            $data['image'] = $relativePath;
+
+            $image = new File;
+            $absolutePath = $image->files(public_path('storage/images'));
+            $filename = rand(0, 1) . '.' . $extension;
+
+            if (File::exists($absolutePath)) {
+                delete(public_path('storage/images'));
+            }
+            $data['image'] = file_put_contents($filename, $absolutePath);
+        }
     }
 
     /**
