@@ -5,7 +5,7 @@ const stateContext = createContext({
     setUser: () => {},
     token: null,
     setToken: () => {},
-    surveys: null,
+    surveys: [],
     setSurveys: () => {},
 });
 
@@ -14,7 +14,7 @@ const AUTH_TOKEN = "auth_token";
 export function Context({ children }) {
     const [user, setUser] = useState({});
     const [token, _setToken] = useState(localStorage.getItem(AUTH_TOKEN));
-    const [surveys, setSurveys] = useState({});
+    const [surveys, setSurveys] = useState([]);
 
     function setToken(token) {
         if (token) {

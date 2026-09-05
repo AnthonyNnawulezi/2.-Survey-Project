@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSurveyRequest;
 use App\Http\Requests\UpdateSurveyRequest;
+use App\Http\Resources\SurveyResource;
 use App\Models\Survey;
+use App\Models\SurveyQuestion;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -51,6 +53,17 @@ class SurveyController extends Controller
             }
             $data['image'] = file_put_contents($filename, $absolutePath);
         }
+
+        Survey::create($data);
+
+        if (isset($data['questions'])) {
+            $data['questions'].forEach($questions as $question) {
+                $survey_id = Survey::user()->user_id;
+                $data['questions']->id = $survey_id;
+                SurveyQuestion::create($data['questions']);
+            }
+        }
+        return new SurveyResource($data);
     }
 
     /**
