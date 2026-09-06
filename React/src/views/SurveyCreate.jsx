@@ -98,7 +98,7 @@ export default function SurveyCreate() {
 
                         <div className="sm:col-span-4">
                             <label
-                                htmlFor="expire_date"
+                                htmlFor="expire_at"
                                 className="block font-medium text-white text-sm/6"
                             >
                                 Expire Date
@@ -106,8 +106,8 @@ export default function SurveyCreate() {
                             <div className="mt-2">
                                 <div className="flex items-center pl-3 rounded-md bg-white/5 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
                                     <input
-                                        id="expire_date"
-                                        name="expire_date"
+                                        id="expire_at"
+                                        name="expire_at"
                                         type="date"
                                         value={survey.expire_at}
                                         placeholder="Survey Title"
@@ -115,7 +115,7 @@ export default function SurveyCreate() {
                                         onChange={(e) =>
                                             setSurvey({
                                                 ...survey,
-                                                expire_date: e.target.value,
+                                                expire_at: e.target.value,
                                             })
                                         }
                                     />
