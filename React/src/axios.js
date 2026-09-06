@@ -58,7 +58,7 @@ apiClient.interceptors.response.use(
                 break;
 
             default:
-                console.error("Network error, please check your connection");
+                console.error(error.response?.data ?? error.message);
                 break;
         }
         return Promise.reject(error);

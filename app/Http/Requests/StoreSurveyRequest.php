@@ -32,11 +32,13 @@ class StoreSurveyRequest extends FormRequest
         return [
             'user_id' => 'exists:user,id',
             'image' => 'required|string',
+            'image_url' => 'required|string',
             'title' => 'required|string',
             'slug' => 'required|string',
             'status' => 'required|enum:surveys,slug',
             'description' => 'required|string',
             'expire_at' => 'required|date:after,today',
+            'questions' => [],
         ];
     }
 }

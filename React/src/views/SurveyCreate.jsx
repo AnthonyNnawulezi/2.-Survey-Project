@@ -7,6 +7,7 @@ export default function SurveyCreate() {
     const [survey, setSurvey] = useState({
         id: null,
         image_url: null,
+        image: null,
         title: "",
         slug: "",
         status: "active",
