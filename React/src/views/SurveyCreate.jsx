@@ -1,6 +1,7 @@
 // import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import apiClient from "../axios";
 
 export default function SurveyCreate() {
     const [survey, setSurvey] = useState({
@@ -10,12 +11,38 @@ export default function SurveyCreate() {
         slug: "",
         status: "active",
         description: "",
-        expire_date: "",
+        expire_at: "",
         questions: [],
     });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState({});
 
-    function onSubmit() {}
-    console.log(survey.title);
+    async function onSubmit(event) {
+        event.preventDefault();
+        setError({});
+
+        try {
+            setLoading(true);
+
+            const response = await apiClient.post("/survey", {
+                image_url: null,
+                title: "",
+                slug: "",
+                status: "active",
+                description: "",
+                expire_at: "",
+                questions: [],
+            });
+
+            setSurvey(response);
+
+            console.log(survey, response);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     function onSelectImage() {}
     console.log(survey.image_url);
@@ -90,7 +117,7 @@ export default function SurveyCreate() {
                                         id="expire_date"
                                         name="expire_date"
                                         type="date"
-                                        value={survey.expire_date}
+                                        value={survey.expire_at}
                                         placeholder="Survey Title"
                                         className="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
                                         onChange={(e) =>
@@ -123,10 +150,8 @@ export default function SurveyCreate() {
                                 >
                                     <input
                                         type="file"
-                                        onClick={(e) =>
-                                            setSurvey(() => {
-                                                onSelectImage;
-                                            })
+                                        onClick={() =>
+                                            setSurvey(() => onSelectImage())
                                         }
                                     />
                                     Change
