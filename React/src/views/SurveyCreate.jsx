@@ -24,15 +24,7 @@ export default function SurveyCreate() {
         try {
             setLoading(true);
 
-            const response = await apiClient.post("/surveys", {
-                image_url: null,
-                title: "",
-                slug: "",
-                status: "active",
-                description: "",
-                expire_at: "",
-                questions: [],
-            });
+            const response = await apiClient.post("/surveys", survey);
 
             setSurvey(response);
 
