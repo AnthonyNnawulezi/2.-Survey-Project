@@ -45,7 +45,7 @@ export default function SurveyCreate() {
     }
 
     function onSelectImage() {}
-    // console.log(survey.image_url);
+    console.log(survey.image_url);
 
     return (
         <form onSubmit={onSubmit} className="p-5">

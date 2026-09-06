@@ -54,12 +54,12 @@ class SurveyController extends Controller
             $data['image'] = file_put_contents($filename, $absolutePath);
         }
 
-        Survey::create($data);
+        $survey = Survey::create($data);
 
         if (isset($data['questions'])) {
-            $data['questions'].forEach($questions as $question) {
-                $survey_id = Survey::user()->user_id;
-                $data['questions']->id = $survey_id;
+            foreach ($data['questions'] as $question) {
+                $survey_id = $survey->user_id;
+                $question->id = $survey_id;
                 SurveyQuestion::create($data['questions']);
             }
         }
