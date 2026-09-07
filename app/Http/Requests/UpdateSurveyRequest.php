@@ -33,9 +33,9 @@ class UpdateSurveyRequest extends FormRequest
             'image' => 'required|string',
             'title' => 'required|string',
             'slug' => 'required|string',
-            'status' => 'required|enum:surveys,slug',
+            'status' => 'required|in:active,inactive',
             'description' => 'required|string',
-            'expire_at' => 'required|date:after,today',
+            'expire_at' => 'required|date|after:today',
         ];
     }
 }

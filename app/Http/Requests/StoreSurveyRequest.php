@@ -35,9 +35,9 @@ class StoreSurveyRequest extends FormRequest
             'image_url' => 'required|string',
             'title' => 'required|string',
             'slug' => 'required|string',
-            'status' => 'required|enum:surveys,slug',
+            'status' => 'required|in:active,inactive',
             'description' => 'required|string',
-            'expire_at' => 'required|date:after,today',
+            'expire_at' => 'required|date|after:today',
             'questions' => [],
         ];
     }
