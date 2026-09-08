@@ -6,7 +6,6 @@ import apiClient from "../axios";
 export default function SurveyCreate() {
     const [survey, setSurvey] = useState({
         id: null,
-        image_url: null,
         image: null,
         title: "",
         slug: "",
@@ -21,6 +20,14 @@ export default function SurveyCreate() {
     async function onSubmit(event) {
         event.preventDefault();
         setError({});
+
+        const payload = new FormData();
+
+        payload.append("image", survey.image);
+        payload.append("title", survey.title);
+        payload.append("status", survey.status);
+        payload.append("description", survey.description);
+        payload.append("expire_at", survey.expire_at);
 
         try {
             setLoading(true);
@@ -37,8 +44,17 @@ export default function SurveyCreate() {
         }
     }
 
-    function onSelectImage() {}
-    console.log(survey.image_url);
+    function onSelectImage(e) {
+        const file = e.target.file[0];
+
+        if (!file) return;
+
+        setSurvey((previous) => ({
+            ...previous,
+            image: file,
+            image_url: URL.createObjectURL(file),
+        }));
+    }
 
     return (
         <form onSubmit={onSubmit} className="p-5">
@@ -137,15 +153,10 @@ export default function SurveyCreate() {
                                     className="rounded-full size-12"
                                     src={survey.image_url ?? PhotoIcon}
                                 />
-                                <button
-                                    type="file"
-                                    className="px-3 py-2 text-sm font-semibold text-white rounded-md bg-white/10 inset-ring inset-ring-white/5 hover:bg-white/20"
-                                >
+                                <button className="px-3 py-2 text-sm font-semibold text-white rounded-md bg-white/10 inset-ring inset-ring-white/5 hover:bg-white/20">
                                     <input
                                         type="file"
-                                        onClick={() =>
-                                            setSurvey(() => onSelectImage())
-                                        }
+                                        onChange={onSelectImage}
                                     />
                                     Change
                                 </button>
