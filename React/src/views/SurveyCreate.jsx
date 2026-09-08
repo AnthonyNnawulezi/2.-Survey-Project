@@ -168,13 +168,15 @@ export default function SurveyCreate() {
                                         id="comments"
                                         name="comments"
                                         type="checkbox"
-                                        checked={survey.status}
+                                        checked={survey.status === "active"}
                                         aria-describedby="comments-description"
                                         className="col-start-1 row-start-1 border rounded-sm appearance-none border-white/10 bg-white/5 checked:border-indigo-500 checked:bg-indigo-500 indeterminate:border-indigo-500 indeterminate:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:border-white/5 disabled:bg-white/10 disabled:checked:bg-white/10 forced-colors:appearance-auto"
                                         onChange={(e) =>
                                             setSurvey({
                                                 ...survey,
-                                                status: e.target.checked,
+                                                status: e.target.checked
+                                                    ? "active"
+                                                    : "inactive",
                                             })
                                         }
                                     />
