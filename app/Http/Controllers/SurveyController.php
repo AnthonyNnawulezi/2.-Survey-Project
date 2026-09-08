@@ -41,38 +41,6 @@ class SurveyController extends Controller
         $survey = Survey::create($data);
 
         return new SurveyResource($survey);
-
-        if (isset($data['image'])) {
-            $extension = $request->file('image')->extension();
-            $type = ['png', 'jpeg', 'jpg', 'gif'];
-
-            if (!in_array($extension, $type)) {
-                throw new Exception("Invalid image type");
-            }
-
-            $relativePath = $data['image'];
-            $data['image'] = $relativePath;
-
-            $image = new File;
-            $absolutePath = $image->files(public_path('storage/images'));
-            $filename = rand(0, 1) . '.' . $extension;
-
-            if (File::exists($absolutePath)) {
-                delete(public_path('storage/images'));
-            }
-            $data['image'] = file_put_contents($filename, $absolutePath);
-        }
-
-        $survey = Survey::create($data);
-
-        if (isset($data['questions'])) {
-            foreach ($data['questions'] as $question) {
-                $survey_id = $survey->user_id;
-                $question->id = $survey_id;
-                SurveyQuestion::create($data['questions']);
-            }
-        }
-        return new SurveyResource($data);
     }
 
     /**
