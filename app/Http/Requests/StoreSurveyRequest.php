@@ -32,10 +32,10 @@ class StoreSurveyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'exists:user,id',
+            'user_id' => 'exists:users,id',
             'image' => 'required|image|mimes:jpg,jpeg,png,gif',
             'title' => 'required|string',
-            'slug' => 'required|string',
+            'slug' => 'required|string|unique:surveys,slug',
             'status' => 'required|in:active,inactive',
             'description' => 'required|string',
             'expire_at' => 'required|date|after:today',
