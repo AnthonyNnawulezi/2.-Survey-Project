@@ -17,8 +17,7 @@ export default function SurveyCreate() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState({});
 
-    async function onSubmit(event) {
-        event.preventDefault();
+    async function onSubmit() {
         setError({});
 
         const payload = new FormData();
