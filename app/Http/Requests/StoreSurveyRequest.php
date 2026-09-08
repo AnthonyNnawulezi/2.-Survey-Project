@@ -31,8 +31,7 @@ class StoreSurveyRequest extends FormRequest
     {
         return [
             'user_id' => 'exists:user,id',
-            'image' => 'required|string',
-            'image_url' => 'required|string',
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif',
             'title' => 'required|string',
             'slug' => 'required|string',
             'status' => 'required|in:active,inactive',
