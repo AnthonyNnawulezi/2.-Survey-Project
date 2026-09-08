@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StoreSurveyRequest extends FormRequest
 {
@@ -15,12 +16,13 @@ class StoreSurveyRequest extends FormRequest
         return true;
     }
 
-    // protected function prepareForvalidation()
-    // {
-    //     $this->merge([
-    //         'id' => $this->id
-    //     ]);
-    // }
+    protected function prepareForvalidation(): void
+    {
+        $this->merge([
+            'user_id' => $this->user()->id,
+            'slug' => Str::slug($this->input('title'))
+        ]);
+    }
 
     /**
      * Get the validation rules that apply to the request.

@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class Survey extends Model
 {
+    use HasSlug;
+
     protected $fillable = [
         'title',
         'user_id',
