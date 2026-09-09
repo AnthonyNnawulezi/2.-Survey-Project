@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('slug');
             $table->string('status');
             $table->longText('description');
+            $table->date('expire_at');
             $table->timestamps();
-            $table->timestamp('expire_at');
         });
     }
 

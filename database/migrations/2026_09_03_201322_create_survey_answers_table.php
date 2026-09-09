@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('survey_id')->constrained('surveys')->onDelete('cascade');
             $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->date('end_date');
         });
     }
 

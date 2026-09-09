@@ -2,8 +2,10 @@
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import apiClient from "../axios";
+import { replace, useNavigate } from "react-router-dom";
 
 export default function SurveyCreate() {
+    const navigate = useNavigate();
     const [survey, setSurvey] = useState({
         id: null,
         image: null,
@@ -17,7 +19,8 @@ export default function SurveyCreate() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState({});
 
-    async function onSubmit() {
+    async function onSubmit(e) {
+        e.preventDefault();
         setError({});
 
         const payload = new FormData();
@@ -44,7 +47,7 @@ export default function SurveyCreate() {
     }
 
     function onSelectImage(e) {
-        const file = e.target.file[0];
+        const file = e.target.files[0];
 
         if (!file) return;
 
@@ -53,10 +56,11 @@ export default function SurveyCreate() {
             image: file,
             image_url: URL.createObjectURL(file),
         }));
+        // navigate("/surveys", replace);
     }
 
     return (
-        <form onSubmit={onSubmit} className="p-5">
+        <form onSubmit={onSubmit} className="p-5" encType="multipart/form-data">
             <div className="space-y-12">
                 <div className="pb-12 border-b border-white/10">
                     <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -141,7 +145,7 @@ export default function SurveyCreate() {
 
                         <div className="col-span-full">
                             <label
-                                htmlFor="photo"
+                                htmlFor="image"
                                 className="block font-medium text-white text-sm/6"
                             >
                                 Photo
@@ -152,13 +156,13 @@ export default function SurveyCreate() {
                                     className="rounded-full size-12"
                                     src={survey.image_url ?? PhotoIcon}
                                 />
-                                <button className="px-3 py-2 text-sm font-semibold text-white rounded-md bg-white/10 inset-ring inset-ring-white/5 hover:bg-white/20">
+                                <label className="px-3 py-2 text-sm font-semibold text-white rounded-md bg-white/10 inset-ring inset-ring-white/5 hover:bg-white/20">
                                     <input
                                         type="file"
                                         onChange={onSelectImage}
                                     />
                                     Change
-                                </button>
+                                </label>
                             </div>
                         </div>
                         <div className="flex gap-3">
