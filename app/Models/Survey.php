@@ -3,12 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 
 class Survey extends Model
 {
-    use HasSlug;
 
     protected $fillable = [
         'title',
@@ -22,8 +19,8 @@ class Survey extends Model
         'updated_at',
     ];
 
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()->generateSlugsFrom('title')->saveSlugsTo('slug');
-    }
+    // public function getSlugOptions(): SlugOptions
+    // {
+    //     return SlugOptions::create()->generateSlugsFrom('title')->saveSlugsTo('slug');
+    // }
 }

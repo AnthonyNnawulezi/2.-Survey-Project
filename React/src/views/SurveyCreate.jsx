@@ -33,14 +33,15 @@ export default function SurveyCreate() {
 
         try {
             setLoading(true);
-
-            const response = await apiClient.post("/surveys", survey);
+            console.log("Submitted expiry:", payload.get("expire_at"));
+            const response = await apiClient.post("/surveys", payload);
 
             setSurvey(response);
 
             console.log(survey, response);
         } catch (error) {
-            console.log(error);
+            console.log(error.response?.data?.errors);
+            setError(error.response?.data?.errors ?? {});
         } finally {
             setLoading(false);
         }
@@ -60,7 +61,7 @@ export default function SurveyCreate() {
     }
 
     return (
-        <form onSubmit={onSubmit} className="p-5" encType="multipart/form-data">
+        <form onSubmit={onSubmit} className="p-5">
             <div className="space-y-12">
                 <div className="pb-12 border-b border-white/10">
                     <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -81,10 +82,10 @@ export default function SurveyCreate() {
                                         placeholder="Survey Title"
                                         className="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"
                                         onChange={(e) =>
-                                            setSurvey({
-                                                ...survey,
+                                            setSurvey((prev) => ({
+                                                ...prev,
                                                 title: e.target.value,
-                                            })
+                                            }))
                                         }
                                     />
                                 </div>
