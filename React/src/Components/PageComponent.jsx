@@ -6,7 +6,7 @@ function PageComponent({ title, buttons = "", children }) {
                     <h1 className="text-3xl font-bold tracking-tight text-white">
                         {title}
                     </h1>
-                    <button className="">{buttons}</button>
+                    <div className="">{buttons}</div>
                 </div>
             </header>
             <main>

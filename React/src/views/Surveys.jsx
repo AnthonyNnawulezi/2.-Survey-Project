@@ -19,7 +19,7 @@ function Surveys({ children }) {
                 <Link to="/surveys/create">
                     <button
                         type="button"
-                        class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-teal-500 border border-transparent text-foreground-inverse hover:bg-teal-600 focus:outline-hidden focus:bg-teal-600 disabled:opacity-50 disabled:pointer-events-none"
+                        className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg bg-teal-500 border border-transparent text-foreground-inverse hover:bg-teal-600 focus:outline-hidden focus:bg-teal-600 disabled:opacity-50 disabled:pointer-events-none"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

@@ -34,11 +34,11 @@ export default function SurveyCreate() {
         try {
             setLoading(true);
             console.log("Submitted expiry:", payload.get("expire_at"));
+
             const response = await apiClient.post("/surveys", payload);
 
-            setSurvey(response);
-
             console.log(survey, response);
+            navigate("/surveys", { replace: true });
         } catch (error) {
             console.log(error.response?.data?.errors);
             setError(error.response?.data?.errors ?? {});
@@ -57,7 +57,6 @@ export default function SurveyCreate() {
             image: file,
             image_url: URL.createObjectURL(file),
         }));
-        // navigate("/surveys", replace);
     }
 
     return (
